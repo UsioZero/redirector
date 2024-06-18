@@ -1,5 +1,7 @@
 function redirectOnYouTube(tab) {
-  if (tab.url.startsWith("https://www.youtube.com")) {
+  if (
+    tab.url.startsWith("https://www.youtube.com" || "https://m.youtube.com")
+  ) {
     browser.tabs.update(tab.id, { url: "about:blank" });
   }
 }

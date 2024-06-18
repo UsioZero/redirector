@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Redirect Extension",
-  "version": "1.1",
-  "description": "Extension that redirects from youtube.com to about:blank.",
+  "version": "1.2",
+  "description": "Extension that redirects from https://www.youtube.com/* or https://m.youtube.com/* to about:blank.",
   "permissions": ["tabs", "activeTab"],
   "background": {
     "scripts": ["background.js"],
