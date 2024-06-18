@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Redirect Extension",
+  "version": "1.1",
+  "description": "Extension that redirects from youtube.com to about:blank.",
+  "permissions": ["tabs", "activeTab"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Redirect Extension"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
