@@ -4,19 +4,19 @@
 
 ### Added
 
-- _CHANGELOG.md_
+- **CHANGELOG.md**
 - popoup folder for popup that appears by clicking on extension
 - added time support in sites list
 - added domain name support in sites list
 - added regex support in sites list
-- _release-v1.4.zip_
-- link to popup in _manifest.json_
+- **release-v1.4.zip**
+- link to popup in **manifest.json**
 
 ### Changed
 
-- moved site list to _config/sites.json_
-- _README.md_
-- description and version in manifest.json
+- moved site list to **config/sites.json**
+- **README.md**
+- description and version in **manifest.json**
 - now redirects to previous tab or to about:blank if first tab
 
 ### TODO

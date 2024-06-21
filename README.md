@@ -1,5 +1,5 @@
-### Firefox extension that redirects to previous tab at specific _time_ from
+### Firefox extension that redirects to previous tab at specific **time** from
 
-- _sites_ in config/sites.json
-- _domains_ with containing the specific words
+- **sites** in config/sites.json
+- **domains** with containing the specific words
 - site with specific regexes
