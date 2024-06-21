@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Redirect Extension",
   "version": "1.4",
-  "description": "Extension that will save you from wasting time watching youtube.",
+  "description": "Extension that will redirect ypou from specific sites list at specific time.",
   "permissions": ["tabs", "activeTab"],
   "background": {
     "scripts": ["background.js"],
