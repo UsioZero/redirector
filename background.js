@@ -1,3 +1,8 @@
+let tab1 = "about:blank";
+let tab2 = "about:blank";
+let curTabId = -1;
+let sitesConfig;
+
 function isTimeInRange(time) {
   if (time == "always") return true;
 
@@ -26,12 +31,6 @@ function isTimeInRange(time) {
     );
   }
 }
-
-let tab1 = "about:blank";
-
-let tab2 = "about:blank";
-
-let sitesConfig;
 
 async function loadConfig() {
   try {
@@ -80,6 +79,12 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.url) {
     tab1 = tab2;
     tab2 = tab.url;
+
+    if (curTabId != tabId) {
+      tab1 = "about:blank";
+    }
+    curTabId = tabId;
+
     redirectOnYouTube(tab);
   }
 });

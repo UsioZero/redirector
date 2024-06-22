@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.4.1 (2024-06-22)
+
+### Added
+
+- **.gitignore** file
+
+### Removed
+
+- **Release** folder
+
+### Fixed
+
+- Problem with redirection to sites from another tabs instead of about:blank [more info](#todo)
+
 ## v1.4 (2024-06-21)
 
 ### Added
