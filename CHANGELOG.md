@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.4.2 (2024-07-06)
+
+### Changed
+
+- Refactored code in background.js
+- Moved checking is in config file to a new function
+
+### Fixed
+
+- When on forbidden website and redirects back to another forbidden website, should redirect to about:blank instead
+
 ## v1.4.1 (2024-06-22)
 
 ### Added

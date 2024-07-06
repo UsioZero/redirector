@@ -46,34 +46,58 @@ function getDomainFromUrl(url) {
   return urlObj.hostname;
 }
 
-function redirectOnYouTube(tab) {
-  if (!sitesConfig) return;
+function redirect(tabId) {
+  tab2 = tab1;
 
-  const tabDomain = getDomainFromUrl(tab.url);
+  if (isInConfig(tab2)) {
+    tab2 = "about:config";
+  }
 
-  sitesConfig.forEach((site) => {
-    if (site.regex) {
-      const regex = new RegExp(site.url);
-      if (regex.test(tab.url) && isTimeInRange(site.time)) {
-        tab2 = tab1;
-        browser.tabs.update(tab.id, { url: tab2 });
-      }
-    } else if (site.domain) {
-      const domainRegex = new RegExp(site.domain);
-      if (domainRegex.test(tabDomain) && isTimeInRange(site.time)) {
-        tab2 = tab1;
-        browser.tabs.update(tab.id, { url: tab2 });
-      }
-    } else {
-      if (tab.url.startsWith(site.url) && isTimeInRange(site.time)) {
-        tab2 = tab1;
-        browser.tabs.update(tab.id, { url: tab2 });
-      }
-    }
+  browser.tabs.update(tabId, {
+    url: tab2,
   });
 }
 
-browser.tabs.onCreated.addListener(redirectOnYouTube);
+function isInConfig(tabURL) {
+  if (!sitesConfig) return false;
+
+  for (site of sitesConfig) {
+    if (site.regex) {
+      const regex = new RegExp(site.url);
+
+      if (regex.test(tabURL) && isTimeInRange(site.time)) {
+        return true;
+      }
+    } else if (site.domain) {
+      const tabDomain = getDomainFromUrl(tabURL);
+      const domainRegex = new RegExp(site.domain);
+
+      if (domainRegex.test(tabDomain) && isTimeInRange(site.time)) {
+        return true;
+      }
+    } else {
+      if (
+        isTimeInRange(site.time) &&
+        (tabURL.startsWith(site.url) ||
+          tabURL.startsWith("https://" + site.url) ||
+          tabURL.startsWith("http://" + site.url) ||
+          tabURL.startsWith("https://www." + site.url) ||
+          tabURL.startsWith("http://www." + site.url))
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function checkSiteURL(tab) {
+  if (isInConfig(tab.url)) {
+    redirect(tab.id);
+  }
+}
+
+browser.tabs.onCreated.addListener(checkSiteURL);
 
 browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   if (changeInfo.url) {
@@ -85,7 +109,7 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     }
     curTabId = tabId;
 
-    redirectOnYouTube(tab);
+    checkSiteURL(tab);
   }
 });
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Redirect Extension",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Extension that will redirect ypou from specific sites list at specific time.",
   "permissions": ["tabs", "activeTab"],
   "background": {
