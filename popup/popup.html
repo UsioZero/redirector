@@ -2,10 +2,46 @@
 <html>
   <head>
     <title>Redirect Extension</title>
-    <link rel="stylesheet" type="text/css" href="popup.css" />
+    <link rel="stylesheet" />
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>Redirect Extension</h1>
+    <div id="main-page">
+      <h1>Blocked Sites:</h1>
+      <ul id="site-list"></ul>
+      <button id="add-site-btn">Add Site</button>
+    </div>
+
+    <div id="add-site-page" style="display: none">
+      <div class="header">
+        <button class="back-button" id="back-btn">&#x2190;</button>
+        <h2>Add New Site</h2>
+      </div>
+      <form id="add-site-form">
+        <label id="url-label">URL:</label>
+        <input
+          type="text"
+          id="new-url"
+          placeholder="https://example.com"
+          required
+        />
+
+        <label id="time-label">Time Range:</label>
+        <input
+          type="text"
+          id="new-time"
+          placeholder="23:59-05:00 or always"
+          required
+        />
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="is-domain-checkbox" />
+          <label for="is-domain-checkbox">domain</label>
+        </div>
+
+        <button type="submit">Add Site</button>
+      </form>
+    </div>
 
     <script src="popup.js"></script>
   </body>

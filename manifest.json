@@ -3,7 +3,7 @@
   "name": "Redirect Extension",
   "version": "1.4.2",
   "description": "Extension that will redirect ypou from specific sites list at specific time.",
-  "permissions": ["tabs", "activeTab"],
+  "permissions": ["tabs", "activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false

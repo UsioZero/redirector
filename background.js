@@ -34,8 +34,8 @@ function isTimeInRange(time) {
 
 async function loadConfig() {
   try {
-    const response = await fetch(browser.runtime.getURL("config/sites.json"));
-    sitesConfig = await response.json();
+    const result = await browser.storage.local.get("sites");
+    sitesConfig = result.sites || [];
   } catch (error) {
     console.error("Error loading sites config:", error);
   }
@@ -60,12 +60,12 @@ function redirect(tabId) {
 
 function isInConfig(tabURL) {
   if (!sitesConfig) return false;
-
   for (site of sitesConfig) {
     if (site.regex) {
       const regex = new RegExp(site.url);
 
       if (regex.test(tabURL) && isTimeInRange(site.time)) {
+        console.log("Redirect: REGEX");
         return true;
       }
     } else if (site.domain) {
@@ -73,9 +73,10 @@ function isInConfig(tabURL) {
       const domainRegex = new RegExp(site.domain);
 
       if (domainRegex.test(tabDomain) && isTimeInRange(site.time)) {
+        console.log("Redirect: Domain");
         return true;
       }
-    } else {
+    } else if (site.url) {
       if (
         isTimeInRange(site.time) &&
         (tabURL.startsWith(site.url) ||
@@ -84,8 +85,11 @@ function isInConfig(tabURL) {
           tabURL.startsWith("https://www." + site.url) ||
           tabURL.startsWith("http://www." + site.url))
       ) {
+        console.log("Redirect: URL");
         return true;
       }
+    } else {
+      console.error("!WRONG CONFIG FORMAT");
     }
   }
   return false;

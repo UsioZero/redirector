@@ -1,29 +1,161 @@
-/* popup.css */
-
 body {
-  width: 200px;
-  padding: 10px;
   font-family: Arial, sans-serif;
+  background-color: #333;
+  color: #b0b0b0;
+  margin: 0;
+  padding: 10px;
+  width: 300px;
+  height: auto;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
 }
 
 h1 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.back-button {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.back-button:hover {
+  opacity: 0.7;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 5px 0;
+  box-sizing: border-box;
+  border: 1px solid #555;
+  background-color: #222;
+  color: #ffffff;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  background-color: #444;
+  color: #ffffff;
+  border: 1px solid #555;
   cursor: pointer;
-  font-size: 14px;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #555;
+}
+
+.add-site-button {
+  margin-bottom: 10px;
+}
+
+#site-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-right: 20px;
+}
+
+.site-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #444;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.site-name-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.site-name {
+  flex-grow: 1;
+  margin-right: 10px;
+  word-break: break-all;
+  text-align: center;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 5px 0 15px 0;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+label {
+  color: #b0b0b0;
+}
+
+.error-message,
+.confirmation-message {
+  color: #ff5555;
+  margin-bottom: 10px;
+}
+
+.confirmation-message {
+  color: #55ff55;
+}
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: #ff5555;
+}
+
+.delete-btn:hover {
+  color: #ff3333;
 }
