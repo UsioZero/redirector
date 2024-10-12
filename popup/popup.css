@@ -55,12 +55,15 @@ h6 {
 
 input[type="text"] {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0 5px 0;
+  padding: 6px;
   box-sizing: border-box;
   border: 1px solid #555;
   background-color: #222;
   color: #ffffff;
+}
+
+.add-input-field {
+  margin: 2px 0 13px 0;
 }
 
 input[type="checkbox"] {
@@ -93,7 +96,7 @@ button:hover {
 
 .site-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   background-color: #444;
   padding: 10px;
@@ -104,16 +107,9 @@ button:hover {
 
 .site-name-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   flex-grow: 1;
-}
-
-.site-name {
-  flex-grow: 1;
-  margin-right: 10px;
-  word-break: break-all;
-  text-align: center;
 }
 
 .checkbox-container {
@@ -123,22 +119,8 @@ button:hover {
   margin: 5px 0 15px 0;
 }
 
-.checkbox-container input[type="checkbox"] {
-  margin-right: 5px;
-}
-
 label {
   color: #b0b0b0;
-}
-
-.error-message,
-.confirmation-message {
-  color: #ff5555;
-  margin-bottom: 10px;
-}
-
-.confirmation-message {
-  color: #55ff55;
 }
 
 .delete-btn {
@@ -158,4 +140,30 @@ label {
 
 .delete-btn:hover {
   color: #ff3333;
+}
+
+.domain-symbol {
+  color: #0051ff;
+  padding-right: 10px;
+}
+
+.url-symbol {
+  color: #ffa600;
+  padding-right: 10px;
+}
+
+.submit-btn {
+  margin-left: 3px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #55ff55;
+}
+
+.submit-btn:hover {
+  color: #33cc33;
 }

@@ -2,7 +2,7 @@ let sitesConfig = [];
 
 let defaultSitesConfig = [
   { url: "m.youtube.com", time: "always" },
-  { url: "youtube.com/shorts", time: "always" },
+  { url: "youtube.com/shortsdddddddddddddddddddddddd", time: "always" },
   { url: "youtube.com", time: "22:30-05:00" },
   { domain: "porn", time: "always" },
   { domain: "hentai", time: "always" },
@@ -29,24 +29,30 @@ async function loadSites() {
 
     if (site.domain) {
       const symbolBefore = document.createElement("strong");
-      symbolBefore.textContent = ">_";
-      symbolBefore.className = "star-symbol";
+      symbolBefore.textContent = ">";
+      symbolBefore.className = "domain-symbol";
 
       const domainText = document.createElement("span");
-      domainText.textContent = site.domain;
+      domainText.textContent = site.domain.substring(0, 27);
       domainText.className = "domain-text";
-
-      const symbolAfter = document.createElement("strong");
-      symbolAfter.textContent = "_<";
-      symbolAfter.className = "star-symbol";
 
       siteElement.appendChild(symbolBefore);
       siteElement.appendChild(domainText);
-      siteElement.appendChild(symbolAfter);
     } else {
-      siteElement.textContent = site.url;
+      const symbolBefore = document.createElement("strong");
+      symbolBefore.textContent = ">";
+      symbolBefore.className = "url-symbol";
+
+      const urlText = document.createElement("span");
+      urlText.textContent =
+        site.url.length > 24 ? site.url.substring(0, 24) + "..." : site.url;
+      urlText.className = "domain-text";
+
+      siteElement.appendChild(symbolBefore);
+      siteElement.appendChild(urlText);
     }
 
+    // Кнопка видалення
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
 
@@ -54,18 +60,48 @@ async function loadSites() {
     crossSymbol.innerHTML = "&times;";
     deleteBtn.appendChild(crossSymbol);
 
+    // Додаємо подію для відкриття поля зміни часу
+    siteElement.addEventListener("click", () =>
+      editSiteTime(listItem, site, index)
+    );
+
+    // Додаємо подію для видалення
     deleteBtn.addEventListener("click", () => deleteSite(index));
 
     listItem.appendChild(siteElement);
     listItem.appendChild(deleteBtn);
-
     siteList.appendChild(listItem);
   });
 }
 
-document.addEventListener("DOMContentLoaded", loadSites);
+function editSiteTime(listItem, site, index) {
+  listItem.innerHTML = "";
 
-// Додаємо новий сайт до списку
+  const timeInput = document.createElement("input");
+  timeInput.type = "text";
+  timeInput.placeholder = "Enter new time";
+  timeInput.value = site.time;
+  timeInput.className = "time-input";
+
+  const submitBtn = document.createElement("button");
+  submitBtn.className = "submit-btn";
+  submitBtn.innerHTML = "&#10003;";
+
+  submitBtn.addEventListener("click", async () => {
+    const newTime = timeInput.value.trim();
+    if (newTime) {
+      site.time = newTime;
+      sitesConfig[index] = site;
+      await browser.storage.local.set({ sites: sitesConfig });
+      loadSites();
+    }
+  });
+
+  // Додаємо елементи в listItem
+  listItem.appendChild(timeInput);
+  listItem.appendChild(submitBtn);
+}
+
 async function addSite(url, time, isDomain) {
   const site = isDomain
     ? { domain: url, time: time }
@@ -78,14 +114,12 @@ async function addSite(url, time, isDomain) {
   loadSites(); // Після додавання сайту, знову завантажуємо список
 }
 
-// Видаляємо сайт зі списку
 async function deleteSite(index) {
   sitesConfig.splice(index, 1);
   await browser.storage.local.set({ sites: sitesConfig });
   loadSites();
 }
 
-// Обробка переходу між сторінками
 const addSiteBtn = document.getElementById("add-site-btn");
 const backBtn = document.getElementById("back-btn");
 const mainPage = document.getElementById("main-page");
@@ -101,7 +135,6 @@ backBtn.addEventListener("click", () => {
   addSitePage.style.display = "none";
 });
 
-// Зміна тексту етикетки та пояснення
 const checkbox = document.getElementById("is-domain-checkbox");
 const urlLabel = document.getElementById("url-label");
 const urlInput = document.getElementById("new-url");
@@ -120,18 +153,17 @@ checkbox.addEventListener("change", function () {
 
 const addSiteForm = document.getElementById("add-site-form");
 addSiteForm.addEventListener("submit", (e) => {
-  e.preventDefault(); // Зупиняємо стандартну поведінку
-  const url = document.getElementById("new-url").value; // Отримуємо URL
-  const time = document.getElementById("new-time").value; // Отримуємо діапазон часу
-  const isDomain = document.getElementById("is-domain-checkbox").checked; // Перевіряємо чи це домен
+  e.preventDefault();
+  const url = document.getElementById("new-url").value;
+  const time = document.getElementById("new-time").value;
+  const isDomain = document.getElementById("is-domain-checkbox").checked;
 
-  // Викликаємо функцію для додавання сайту
   addSite(url, time, isDomain);
 
-  // Повертаємось на головну сторінку
   mainPage.style.display = "block";
   addSitePage.style.display = "none";
 
-  // Очищаємо поля вводу
   addSiteForm.reset();
 });
+
+document.addEventListener("DOMContentLoaded", loadSites);
