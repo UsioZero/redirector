@@ -2,7 +2,7 @@ let sitesConfig = [];
 
 let defaultSitesConfig = [
   { url: "m.youtube.com", time: "always" },
-  { url: "youtube.com/shortsdddddddddddddddddddddddd", time: "always" },
+  { url: "youtube.com/shorts", time: "always" },
   { url: "youtube.com", time: "22:30-05:00" },
   { domain: "porn", time: "always" },
   { domain: "hentai", time: "always" },
@@ -52,7 +52,6 @@ async function loadSites() {
       siteElement.appendChild(urlText);
     }
 
-    // Кнопка видалення
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
 
@@ -60,12 +59,10 @@ async function loadSites() {
     crossSymbol.innerHTML = "&times;";
     deleteBtn.appendChild(crossSymbol);
 
-    // Додаємо подію для відкриття поля зміни часу
     siteElement.addEventListener("click", () =>
       editSiteTime(listItem, site, index)
     );
 
-    // Додаємо подію для видалення
     deleteBtn.addEventListener("click", () => deleteSite(index));
 
     listItem.appendChild(siteElement);
@@ -97,7 +94,6 @@ function editSiteTime(listItem, site, index) {
     }
   });
 
-  // Додаємо елементи в listItem
   listItem.appendChild(timeInput);
   listItem.appendChild(submitBtn);
 }
@@ -110,8 +106,7 @@ async function addSite(url, time, isDomain) {
   sitesConfig.push(site);
   await browser.storage.local.set({ sites: sitesConfig });
 
-  // Оновлюємо відображення списку
-  loadSites(); // Після додавання сайту, знову завантажуємо список
+  loadSites();
 }
 
 async function deleteSite(index) {

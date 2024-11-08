@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.5.0 (2024-11-08)
+
+### Added
+
+- Full popup UI:
+  - List of all forbiden sites/domains
+  - Can add and delete sites/domains from list
+
+### Changed
+
+- Move saved sites and domains from **/config/sites.json** to local storage
+- Renamed from **Redirect Extension** to **Redirector**
+
+### Removed
+
+- **config** folder
+
 ## v1.4.2 (2024-07-06)
 
 ### Changed
