@@ -3,6 +3,14 @@ let tab2 = "about:blank";
 let curTabId = -1;
 let sitesConfig;
 
+let defaultSitesConfig = [
+  { url: "m.youtube.com", time: "always" },
+  { url: "youtube.com/shorts", time: "always" },
+  { url: "youtube.com", time: "22:30-05:00" },
+  { domain: "porn", time: "always" },
+  { domain: "hentai", time: "always" },
+];
+
 function isTimeInRange(time) {
   if (time == "always") return true;
 
@@ -41,6 +49,20 @@ async function loadConfig() {
   }
 }
 
+async function setUpConfig() {
+  try {
+    const result = await browser.storage.local.get("sites");
+    sitesConfig = result.sites || [];
+  } catch (error) {
+    console.error("Error loading sites config:", error);
+  }
+
+  if (sitesConfig.length === 0) {
+    sitesConfig = defaultSitesConfig;
+    await browser.storage.local.set({ sites: sitesConfig });
+  }
+}
+
 function getDomainFromUrl(url) {
   const urlObj = new URL(url);
   return urlObj.hostname;
@@ -59,7 +81,10 @@ function redirect(tabId) {
 }
 
 function isInConfig(tabURL) {
+  loadConfig();
+
   if (!sitesConfig) return false;
+  console.log(sitesConfig);
   for (site of sitesConfig) {
     if (site.regex) {
       const regex = new RegExp(site.url);
@@ -92,6 +117,7 @@ function isInConfig(tabURL) {
       console.error("!WRONG CONFIG FORMAT");
     }
   }
+  console.log("Not in storage");
   return false;
 }
 
@@ -117,4 +143,4 @@ browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
-loadConfig();
+setUpConfig();
