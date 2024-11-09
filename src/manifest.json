@@ -4,6 +4,7 @@
   "version": "1.5.0",
   "description": "Extension that will redirect ypou from specific sites list.",
   "license": "MIT",
+  "license_url": "https://opensource.org/licenses/MIT",
   "permissions": ["tabs", "activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],
