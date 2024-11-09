@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.1
+
+### Added
+
+- Default sites to background check
+
 ## v1.5.0 (2024-11-08)
 
 ### Added
