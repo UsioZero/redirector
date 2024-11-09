@@ -1,0 +1,46 @@
+name: Release to AMO and GitHub
+
+on:
+  push:
+    tags:
+      - "v*" # Запускає workflow при пуші тега версії, наприклад v1.0.0
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install web-ext
+        run: npm install -g web-ext
+
+      - name: Sign and Publish to AMO
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
+        run: |
+          web-ext sign --source-dir ./src \
+            --api-key=$WEB_EXT_API_KEY \
+            --api-secret=$WEB_EXT_API_SECRET \
+            --channel=listed \
+            --artifacts-dir=./artifacts
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/*.xpi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update version in manifest.json
+        run: |
+          VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+          jq --arg version "$VERSION" '.version = $version' src/manifest.json > src/manifest_temp.json
+          mv src/manifest_temp.json src/manifest.json
