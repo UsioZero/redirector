@@ -26,11 +26,12 @@ jobs:
           WEB_EXT_API_KEY: ${{ secrets.AMO_JWT_ISSUER }}
           WEB_EXT_API_SECRET: ${{ secrets.AMO_JWT_SECRET }}
         run: |
-          web-ext sign --source-dir ./src \
+          web-ext sign --source-dir "./src" \
             --api-key=$WEB_EXT_API_KEY \
             --api-secret=$WEB_EXT_API_SECRET \
             --channel=listed \
-            --artifacts-dir=./artifacts
+            --artifacts-dir="./artifacts" \
+            -amo-metadata="./AMO_METADATA.json"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1

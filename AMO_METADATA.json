@@ -1,0 +1,12 @@
+{
+  "version": { "license": "MIT" },
+  "categories": ["extensions", "productivity"],
+  "contributions_url": "https://www.patreon.com/usio0",
+  "requires_payment": false,
+  "homepage": {
+    "en-US": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "support_email": {
+    "en-US": "gaben@valvesoftware.com"
+  }
+}
